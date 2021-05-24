@@ -54,6 +54,7 @@
           border: transparent;
           color: white;
           font-weight: 600;
+          margin-top: 10px;
       }
       .remove {
           background-color: red;
@@ -74,21 +75,28 @@
       #prod {
           padding: 10px;
         display: grid;
-        grid-template-columns: repeat(4, 250px);
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 10px;
         background-color: blanchedalmond;
       }
       #prod > div {
           display: flex;
           flex-direction: column;
+          background-color: cornsilk;
+          padding: 15px;
+          border-radius: 15px;
       }
       #prod > div > div {
           display: flex;
           justify-content: space-around;
           margin-top: 10px;
       }
+      p {
+        font-size: 20px;
+      }
       #prod img {
           width: 250px;
+          margin-bottom: 15px;
       }
     </style>
   </head>
@@ -148,7 +156,7 @@
         id++;
         let productPage=document.getElementById('prod');
         let div = document.createElement('div')
-        div.innerHTML=`<img id='${id}' src='${image.value}'/><div><button id='${id}' class="remove" onclick='remover(${id})'>Remove</button><button id='${id}' class="update" onclick='updater(${id})'>Update</button></div>`
+        div.innerHTML=`<img src='${image.value}'/><p id='${id}'>Name-'${nam.value}'<br>Category-'${category.value}'<br>Description-'${description.value}'<br>Price- &#8377 ${price.value}<br>Delivery-In '${delivery.value}' days</p><div><button id='${id}' class="remove" onclick='remover(${id})'>Remove</button><button id='${id}' class="update" onclick='updater(${id})'>Update</button></div>`
 
         productPage.append(div);
     }
@@ -161,14 +169,14 @@
 
         function updater(id) {
             var new_price = prompt( 'Enter new price');
-
+            
             let nam=document.getElementById('name');
             let category=document.getElementById('category');
             let description=document.getElementById('description');
             let price=document.getElementById('price');
             let delivery=document.getElementById('delivery');
             let image=document.getElementById('image');
-
+            
             let productDetails={
             'name':nam.value,
             'category':category.value,
@@ -176,9 +184,35 @@
             'price':new_price,
             'delivery':delivery.value,
             'image':image.value
-        };
-
-        console.log(productDetails);
+          };
+          
+          console.log(productDetails);
+          
+          let update = document.getElementById(id);
+          update.innerHTML = `<p id='${id}'>Name-'${nam.value}'<br>Category-'${category.value}'<br>Description-'${description.value}'<br>Price- &#8377 ${new_price}<br>Delivery-In '${delivery.value}' days</p>`
         }
   </script>
 </html>
+
+
+
+<script>
+    id = 0;
+    function add(){
+        var price = document.getElementById("price")
+        var name = document.getElementById("name")
+        var desc = document.getElementById("desc")
+        var time = document.getElementById("time")
+        var div =document.createElement("div");
+        id++;
+        div.innerHTML=`<p id= "${id}">${name.value}<br>${price.value}<br>${desc.value}<br>${time.value}<br><img src="https://via.placeholder.com/70x100"></img><p><br><button id="${id}" onclick="price(${id})">Update Price</button><button id="${id}" onclick="remove(${id})">Remove</button>`;
+        task.appendChild(div);
+        
+    }
+    function price(id){
+        var name = document.getElementById("name")
+        var new_price=  prompt(`Enter new price`);
+        var po = document.getElementById(id);
+        po.innerHTML= `<p id= "${id}">${name.value}<br>${new_price}<br>${desc.value}<br>${time.value}<br><img src="https://via.placeholder.com/70x100"></img><p>`
+        
+    }
