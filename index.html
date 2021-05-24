@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nike Inventory System</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      #cont {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 100vh;
+      }
+      #form {
+        
+        background-color: maroon;
+      }
+      #formcontainer {
+          display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+          margin-top: 50px;
+      }
+      input {
+          margin: 10px;
+          margin-left: 30px;
+          outline: none;
+          width: 70%;
+          height: 20px;
+          border-radius: 10px;
+          padding: 10px;
+          font-size: 16px;
+          font-family: sans-serif;
+          border: transparent;
+      }
+      input:hover {
+          animation: input 500ms ease-in-out 1 forwards;
+      }
+      @keyframes input {
+          100%{
+              width: 100%;
+              border-radius: 30px;
+              background-color: #999;
+          }
+      }
+      button {
+          width: 100px;
+          height: 30px;
+          border-radius: 20px;
+          border: transparent;
+          color: white;
+          font-weight: 600;
+      }
+      .remove {
+          background-color: red;
+      }
+      .update {
+          background-color: green;
+      }
+      #add {
+          margin: 30px;
+          outline: none;
+          width: 50%;
+          height: 40px;
+          border-radius: 20px;
+          background-color: blue;
+          color: white;
+          font-weight: 600;
+      }
+      #prod {
+          padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(4, 250px);
+        grid-gap: 10px;
+        background-color: blanchedalmond;
+      }
+      #prod > div {
+          display: flex;
+          flex-direction: column;
+      }
+      #prod > div > div {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 10px;
+      }
+      #prod img {
+          width: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cont">
+      <div id="form">
+        <div id="formcontainer">
+            <label for="name">
+          <input type="text" name="name" id="name" placeholder="Name" />
+        </label>
+        <label for="category">
+          <input type="text" name="category" id="category" placeholder="Category"/>
+        </label>
+        <label for="description"
+          >
+          <input type="text" name="description" id="description" placeholder="Description"/>
+        </label>
+        <label for="price"
+          >
+          <input type="number" name="price" id="price" placeholder="Price"/>
+        </label>
+        <label for="delivery"
+          >
+          <input type="number" name="delivery" id="delivery" placeholder="Estimated delivery"/>
+        </label>
+        <label for="image"
+          >
+          <input type="text" name="image" id="image" placeholder="Image URL"/>
+        </label>
+    </div>
+    <button id="add" onclick="addProduct()">Add Product</button>
+      </div>
+      <div id="prod"></div>
+    </div>
+  </body>
+  <script>
+      var id=0;
+    function addProduct() {
+        let nam=document.getElementById('name');
+        let category=document.getElementById('category');
+        let description=document.getElementById('description');
+        let price=document.getElementById('price');
+        let delivery=document.getElementById('delivery');
+        let image=document.getElementById('image');
+
+        let productDetails={
+            'name':nam.value,
+            'category':category.value,
+            'description':description.value,
+            'price':price.value,
+            'delivery':delivery.value,
+            'image':image.value
+        };
+
+        console.log(productDetails);
+
+        id++;
+        let productPage=document.getElementById('prod');
+        let div = document.createElement('div')
+        div.innerHTML=`<img id='${id}' src='${image.value}'/><div><button id='${id}' class="remove" onclick='remover(${id})'>Remove</button><button id='${id}' class="update" onclick='updater(${id})'>Update</button></div>`
+
+        productPage.append(div);
+    }
+
+     function remover(id){
+            let e = document.getElementById(id);
+            e.parentElement.remove();
+            console.log(id)
+        }
+
+        function updater(id) {
+            var new_price = prompt( 'Enter new price');
+
+            let nam=document.getElementById('name');
+            let category=document.getElementById('category');
+            let description=document.getElementById('description');
+            let price=document.getElementById('price');
+            let delivery=document.getElementById('delivery');
+            let image=document.getElementById('image');
+
+            let productDetails={
+            'name':nam.value,
+            'category':category.value,
+            'description':description.value,
+            'price':new_price,
+            'delivery':delivery.value,
+            'image':image.value
+        };
+
+        console.log(productDetails);
+        }
+  </script>
+</html>
